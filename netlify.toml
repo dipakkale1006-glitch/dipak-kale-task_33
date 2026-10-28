@@ -1,0 +1,27 @@
+# Netlify configuration for the To-Do List frontend.
+#
+# If you deploy the whole repository, set the base directory to `frontend` in the
+# Netlify UI, or keep this file next to the frontend and let Netlify pick it up.
+#
+# Set VITE_API_URL in the Netlify dashboard, e.g.
+#   VITE_API_URL = https://your-todo-api.onrender.com/api
+
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback: serve index.html for any route so client-side routing works.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Sensible cache headers for the hashed build assets.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
