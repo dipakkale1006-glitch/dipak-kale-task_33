@@ -186,7 +186,7 @@ export default function App() {
               {meta.total > 0 && <span className="panel__count">{meta.count} of {meta.total}</span>}
             </h2>
 
-            {stats.completed > 0 && (
+            {Boolean(stats?.completed) && (
               <button type="button" className="btn btn--ghost btn--small" onClick={handleClearCompleted}>
                 Clear completed
               </button>

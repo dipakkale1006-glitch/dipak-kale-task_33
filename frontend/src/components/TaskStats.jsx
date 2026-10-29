@@ -4,20 +4,21 @@
  * which filter is currently applied to the list.
  */
 export default function TaskStats({ stats, total }) {
-  const completion = stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0;
+  const safeStats = stats || { total: 0, completed: 0, pending: 0 };
+  const completion = safeStats.total > 0 ? Math.round(((safeStats.completed || 0) / safeStats.total) * 100) : 0;
 
   return (
     <section className="stats" aria-label="Task summary">
       <div className="stats__item">
-        <span className="stats__value">{stats.total}</span>
+        <span className="stats__value">{safeStats.total || 0}</span>
         <span className="stats__label">Total</span>
       </div>
       <div className="stats__item">
-        <span className="stats__value stats__value--pending">{stats.pending}</span>
+        <span className="stats__value stats__value--pending">{safeStats.pending || 0}</span>
         <span className="stats__label">Pending</span>
       </div>
       <div className="stats__item">
-        <span className="stats__value stats__value--completed">{stats.completed}</span>
+        <span className="stats__value stats__value--completed">{safeStats.completed || 0}</span>
         <span className="stats__label">Completed</span>
       </div>
 

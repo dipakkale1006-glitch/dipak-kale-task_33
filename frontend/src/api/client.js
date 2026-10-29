@@ -54,7 +54,12 @@ function normaliseError(error) {
 // Unwrap the `{ success, message, data }` envelope so callers get the payload
 // directly, and route every failure through `normaliseError`.
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (typeof response.data === 'string' && (response.data.includes('<!doctype html') || response.data.includes('<html'))) {
+      return Promise.reject(new Error('Cannot reach the API. The server returned HTML instead of JSON.'));
+    }
+    return response;
+  },
   (error) => Promise.reject(normaliseError(error)),
 );
 

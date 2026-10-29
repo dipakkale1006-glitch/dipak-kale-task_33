@@ -15,7 +15,13 @@ export default function useStats(refreshKey = 0) {
   const load = useCallback(async () => {
     try {
       const data = await taskApi.fetchStats();
-      setStats(data);
+      if (data && typeof data === 'object') {
+        setStats({
+          total: data.total || 0,
+          completed: data.completed || 0,
+          pending: data.pending || 0,
+        });
+      }
       setError(null);
     } catch (statsError) {
       // Stats are a nice-to-have; a failure here should not break the page.
