@@ -26,7 +26,7 @@ services:
       - key: MONGODB_URI
         sync: false
       - key: CORS_ORIGIN
-        value: https://harmonious-moonbeam-e46a8a.netlify.app
+        sync: false
       - key: RATE_LIMIT_WINDOW_MS
         value: 900000
       - key: RATE_LIMIT_MAX
